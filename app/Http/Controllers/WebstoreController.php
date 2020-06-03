@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Debugbar;
 
 class WebstoreController extends Controller
 {
@@ -12,7 +13,7 @@ class WebstoreController extends Controller
         # We pass all the products from the database into
         # the $products variable, which is an array
         $products = Product::all();
-
+        Debugbar::info($products);
         # We use the home view for the tutorial, but you could
         # use other views too. Home will be our webstore view
         return view('home')->with('products', $products);
@@ -21,6 +22,7 @@ class WebstoreController extends Controller
     # Our function for adding a certain product to the cart
     public function addToCart(Product $product)
     {
+        Debugbar::info($product);
         Cart::add($product->id, $product->name, 1, $product->price);
         return redirect('/home');
     }

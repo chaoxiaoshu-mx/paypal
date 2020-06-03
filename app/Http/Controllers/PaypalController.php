@@ -26,6 +26,7 @@ use Str;
 Use Request;
 use Auth;
 use Config;
+use Debugbar;
 
 class PaypalController extends Controller
 {
@@ -69,13 +70,14 @@ class PaypalController extends Controller
         $items = [];
 
         foreach (Cart::content() as $item) {
+            Debugbar::info($item->name, 'cart:content');
             $items[] = (new Item())
                 ->setName($item->name)
                 ->setCurrency('USD')
                 ->setQuantity($item->qty)
                 ->setPrice($item->price);
         }
-
+        
         # We create a new item list and assign the items to it
         $itemList = new ItemList();
         $itemList->setItems($items);
@@ -95,7 +97,7 @@ class PaypalController extends Controller
 
         # We get the total price of the cart
         $amount = new Amount();
-        $amount->setCurrency('USD')
+        $amount->setCurrency('RMB')
             ->setTotal(Cart::subtotal());
 
         $transaction = new Transaction();
