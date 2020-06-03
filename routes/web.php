@@ -24,3 +24,7 @@ Route::get('status', 'PaypalController@getPaymentStatus');
 
 # Generated routes for authentication
 Auth::routes();
+
+Route::get('/info', function() {
+	return view('phpinfo');
+});

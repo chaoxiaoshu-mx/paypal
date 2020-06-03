@@ -97,7 +97,7 @@ class PaypalController extends Controller
 
         # We get the total price of the cart
         $amount = new Amount();
-        $amount->setCurrency('RMB')
+        $amount->setCurrency('USD')
             ->setTotal(Cart::subtotal());
 
         $transaction = new Transaction();
